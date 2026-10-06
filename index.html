@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>FP | Karen Camacho Pazmiño | Lead Magnet Scorecard</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Brand tokens (dark theme only) */
+  --bg: #0C1414;            /* page background */
+  --panel: #183A35;         /* cards */
+  --panel-dark: #101617;    /* answer buttons, dark areas */
+  --text: #E7EAEC;          /* main text */
+  --cta: #10B47E;           /* main button */
+  --cta-hover: #32BC82;     /* main button hover */
+  --cta-text: #0C1414;      /* main button text */
+  --accent: #D99E51;        /* scores, numbers, highlights */
+
+  /* Answer and tier colors */
+  --green: #10B47E;
+  --orange: #D99E51;
+  --coral: #E26D5A;         /* warning signal only */
+  --opt0-bg: #10392E; --opt0-line: #10B47E;
+  --opt1-bg: #3C3424; --opt1-line: #D99E51;
+  --opt2-bg: #3E2926; --opt2-line: #E26D5A;
+
+  /* Helpers */
+  --muted: #B7C4C6;
+  --line: #2F5A53;
+  --font: "Plus Jakarta Sans", sans-serif;
+
+  color-scheme: dark;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body {
+  margin: 0; min-height: 100vh;
+  background: var(--bg); color: var(--text);
+  font-family: var(--font); font-weight: 400; font-size: 18px; line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+.shell { max-width: 600px; margin: 0 auto; padding: 0 18px 40px; }
+
+/* progress */
+.topbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding: 14px 0 10px; }
+.progress-label { display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; color: var(--muted); margin-bottom: 6px; }
+.progress { height: 14px; background: var(--line); border-radius: 99px; overflow: hidden; }
+.progress > span { display: block; height: 100%; width: 0; border-radius: 99px;
+  background: linear-gradient(90deg, var(--green), var(--orange)); transition: width .35s ease; }
+
+h1, h2, h3 { font-family: var(--font); font-weight: 800; line-height: 1.15; margin: 0 0 12px; letter-spacing: -0.01em; color: var(--text); }
+h1 { font-size: clamp(32px, 9vw, 46px); }
+h2 { font-size: clamp(26px, 7vw, 34px); }
+h3 { font-size: 21px; }
+p { margin: 0 0 14px; }
+.muted { color: var(--muted); }
+:focus-visible { outline: 4px solid var(--accent); outline-offset: 3px; }
+h1:focus, h2:focus { outline: none; }
+noscript p { background: var(--panel); border: 3px solid var(--orange); border-radius: 16px; padding: 14px; margin-top: 16px; }
+
+/* intro hero */
+.hero { margin-top: 10px; background: var(--panel); border: 2px solid var(--line); color: var(--text); border-radius: 28px; padding: 96px 22px 26px; position: relative; overflow: hidden; }
+.hero::before, .hero::after { content: ""; position: absolute; border-radius: 50%; }
+.hero::before { width: 140px; height: 140px; right: -40px; top: -58px; background: var(--green); }
+.hero::after { width: 74px; height: 74px; right: 78px; top: 12px; background: var(--orange); }
+.hero > * { position: relative; z-index: 1; }
+.hero .sub { font-weight: 800; font-size: 20px; color: var(--accent); }
+.hero p { max-width: 30em; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 22px; padding: 0; list-style: none; }
+.chips li { background: var(--panel-dark); border: 2px solid var(--line); color: var(--text); padding: 6px 12px; border-radius: 99px; font-size: 15px; font-weight: 600; }
+.chips li:nth-child(1) { border-color: var(--green); }
+.chips li:nth-child(2) { border-color: var(--orange); }
+.chips li:nth-child(3) { border-color: var(--green); }
+
+/* buttons */
+.btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 60px; padding: 14px 20px;
+  font: 800 19px/1.2 var(--font); border: 0; border-radius: 18px; cursor: pointer; text-decoration: none; text-align: center;
+  background: var(--cta); color: var(--cta-text); box-shadow: 0 5px 0 rgba(0,0,0,.45); transition: transform .08s ease, box-shadow .08s ease, background .15s ease; }
+.btn:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,.45); }
+@media (hover: hover) { .btn:not(.ghost):not(.alt):hover { background: var(--cta-hover); } }
+.btn.alt { background: var(--accent); color: var(--cta-text); }
+@media (hover: hover) { .btn.alt:hover { filter: brightness(1.1); } }
+.btn.ghost { background: transparent; color: var(--text); box-shadow: none; border: 3px solid var(--muted); min-height: 54px; font-size: 17px; }
+.btn.small { min-height: 48px; font-size: 16px; border-radius: 14px; }
+.btn:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; }
+.row { display: grid; gap: 12px; margin-top: 18px; }
+
+/* question screens */
+.screen { display: none; padding-top: 14px; }
+.screen.active { display: block; }
+.area-card { background: var(--panel); border: 3px solid var(--line); border-radius: 26px; padding: 22px 18px 18px; }
+.emoji { font-size: 44px; line-height: 1; display: block; margin-bottom: 8px; }
+.hint { color: var(--muted); font-size: 16px; margin-bottom: 16px; }
+.options { display: grid; gap: 12px; }
+.opt { display: flex; align-items: center; gap: 14px; width: 100%; min-height: 68px; text-align: left; cursor: pointer;
+  font: 600 19px/1.25 var(--font); color: var(--text); padding: 14px 16px; border-radius: 18px; border: 3px solid var(--line-c); background: var(--bg-c); transition: transform .08s ease; }
+.opt:active { transform: scale(.98); }
+.opt[data-v="0"] { --bg-c: var(--opt0-bg); --line-c: var(--opt0-line); }
+.opt[data-v="1"] { --bg-c: var(--opt1-bg); --line-c: var(--opt1-line); }
+.opt[data-v="2"] { --bg-c: var(--opt2-bg); --line-c: var(--opt2-line); }
+.opt .dot { flex: none; width: 28px; height: 28px; border-radius: 50%; border: 3px solid var(--line-c); background: var(--panel-dark); display: grid; place-items: center; }
+.opt[aria-checked="true"] { box-shadow: 0 0 0 4px var(--line-c); }
+.opt[aria-checked="true"] .dot { background: var(--line-c); }
+.opt[aria-checked="true"] .dot::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--panel-dark); }
+.nav { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 16px; }
+
+/* drain grid */
+.drain-grid { display: grid; gap: 10px; }
+.drain { display: flex; align-items: center; gap: 12px; min-height: 60px; width: 100%; text-align: left; cursor: pointer;
+  font: 600 18px/1.2 var(--font); color: var(--text); padding: 12px 14px; border-radius: 16px; border: 3px solid var(--line); background: var(--panel-dark); }
+.drain[aria-checked="true"] { border-color: var(--accent); background: var(--opt1-bg); box-shadow: 0 0 0 4px var(--accent); }
+.drain .e { font-size: 26px; }
+
+/* result */
+.score-card { background: var(--panel); border: 2px solid var(--line); color: var(--text); border-radius: 28px; padding: 24px 20px; margin-top: 8px; position: relative; overflow: hidden; }
+.score-card::after { content: ""; position: absolute; width: 120px; height: 120px; border-radius: 50%; right: -36px; top: -44px; background: var(--tier-color, var(--green)); }
+.score-card::before { content: ""; position: absolute; width: 56px; height: 56px; border-radius: 50%; right: 62px; top: 10px; background: var(--orange); }
+.score-card > * { position: relative; z-index: 1; }
+.score-label { font-weight: 600; color: var(--muted); }
+.score-num { font: 800 72px/1 var(--font); color: var(--accent); }
+.score-num small { font-size: 28px; color: var(--muted); font-weight: 600; }
+.tier-name { display: inline-block; font: 800 26px/1.2 var(--font); margin: 8px 0 12px; padding-bottom: 6px; border-bottom: 6px solid var(--tier-color, var(--green)); }
+.score-card p { color: var(--text); margin: 0 0 8px; }
+.meter { display: flex; gap: 3px; margin: 14px 0 6px; }
+.meter i { flex: 1; height: 12px; border-radius: 4px; background: var(--panel-dark); }
+.meter i.on { background: var(--tier-color, var(--green)); }
+.drain-line { font-weight: 800; color: var(--accent); }
+
+.section-title { margin: 30px 0 6px; }
+.task { background: var(--panel); border: 3px solid var(--line); border-radius: 24px; padding: 18px; margin: 14px 0; }
+.task-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.rank { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--accent); color: var(--cta-text); font: 800 20px/40px var(--font); text-align: center; }
+.tag { display: inline-block; font-size: 14px; font-weight: 600; padding: 3px 10px; border-radius: 99px; background: var(--opt1-bg); border: 2px solid var(--opt1-line); color: var(--text); margin-bottom: 8px; }
+.tag.all { background: var(--opt2-bg); border-color: var(--opt2-line); }
+.tag.hl { background: var(--accent); border-color: var(--accent); color: var(--cta-text); font-weight: 800; }
+.note { background: var(--panel-dark); border: 2px dashed var(--muted); border-radius: 16px; padding: 14px; margin: 10px 0 12px; font-size: 17px; }
+.note p { margin: 0 0 10px; }
+.note p:last-child { margin: 0; }
+.note b { font-weight: 800; color: var(--accent); }
+.empty { background: var(--panel); border: 3px solid var(--line); border-radius: 22px; padding: 18px; }
+
+.cta { margin-top: 34px; background: var(--panel); border: 3px solid var(--cta); border-radius: 28px; padding: 32px 20px 22px; color: var(--text); position: relative; overflow: hidden; }
+.cta::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 10px; background: linear-gradient(90deg, var(--green), var(--orange)); }
+.cta h2 { font-size: 27px; }
+.cta p { color: var(--text); }
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 30px); opacity: 0; pointer-events: none;
+  background: var(--text); color: var(--bg); padding: 12px 20px; border-radius: 99px; font-weight: 800; font-size: 16px; transition: all .25s ease; z-index: 20; max-width: 90%; text-align: center; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+footer { text-align: center; margin-top: 30px; font-size: 15px; color: var(--muted); font-weight: 600; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+@media (min-width: 560px) { .nav { grid-template-columns: 1fr 1fr; } .drain-grid { grid-template-columns: 1fr 1fr; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="topbar" id="topbar" hidden>
+    <div class="progress-label"><span id="plabel">Step 1 of 11</span><span id="ppct">0%</span></div>
+    <div class="progress" role="progressbar" aria-label="Scorecard progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="pbar"><span id="pfill"></span></div>
+  </div>
+
+  <!-- Intro (plain HTML, readable without scripts) -->
+  <section class="screen active" id="s-intro" aria-labelledby="t-intro">
+    <div class="hero">
+      <h1 id="t-intro" tabindex="-1">The Overloaded Founder's Handoff Scorecard</h1>
+      <p class="sub">Find the 3 tasks to hand off today, in 5 minutes.</p>
+      <p>You are carrying a lot. Answer 11 quick questions about who does what in your business. You will see which 3 tasks to hand off first, and get a short handoff note for each one.</p>
+      <ul class="chips">
+        <li>11 quick questions</li>
+        <li>Free · Instant result</li>
+        <li>3 handoff notes to copy</li>
+      </ul>
+      <button class="btn" id="startBtn" type="button">Start</button>
+    </div>
+    <p class="muted" style="margin-top:16px;text-align:center;font-size:16px">There are no wrong answers. Just be honest with yourself.</p>
+    <noscript><p>This scorecard needs JavaScript to run. Please turn it on in your browser and reload the page.</p></noscript>
+  </section>
+
+  <!-- Question screens injected here -->
+  <div id="questions"></div>
+
+  <!-- Drain screen -->
+  <section class="screen" id="s-drain" aria-labelledby="t-drain">
+    <div class="area-card">
+      <span class="emoji" aria-hidden="true">🔋</span>
+      <h2 id="t-drain" tabindex="-1">Which one drains you the most?</h2>
+      <p class="hint">Pick the one that leaves you most tired, even if it is small. We will look at it first.</p>
+      <div class="drain-grid" id="drainGrid" role="radiogroup" aria-labelledby="t-drain"></div>
+      <div class="nav">
+        <button class="btn" id="seeBtn" type="button" disabled>See my results</button>
+        <button class="btn ghost small" id="drainBack" type="button">Back</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Result -->
+  <section class="screen" id="s-result" aria-labelledby="t-result">
+    <h2 id="t-result" tabindex="-1" class="sr">Your results</h2>
+    <div class="score-card" id="scoreCard">
+      <p class="score-label">Your handoff score</p>
+      <div class="score-num"><span id="scoreNum">0</span><small> / 20</small></div>
+      <div class="meter" id="meter" aria-hidden="true"></div>
+      <div class="tier-name" id="tierName"></div>
+      <p id="tierText"></p>
+      <p id="drainLine" class="drain-line"></p>
+    </div>
+
+    <h2 class="section-title" id="topTitle">Your top 3 tasks to hand off first</h2>
+    <p class="muted" id="topSub">Start with these. Edit each note so it sounds like you.</p>
+    <div id="tasks"></div>
+
+    <div class="row">
+      <button class="btn alt" id="copyAll" type="button">Copy my results</button>
+      <button class="btn ghost small" id="retake" type="button">Start again</button>
+    </div>
+
+    <!-- [VERIFY] The offer details in this box (3 hand-picked candidates, 24 hours, owe nothing if none feel right)
+         are not in the project sources. Confirm them with Pareto before you submit. No price is mentioned on purpose. -->
+    <div class="cta">
+      <h2>Want help with these 3?</h2>
+      <p>A Right Hand is a partner who takes work off your plate and thinks ahead with you, not just a task-taker. Book a short Matching Call with Pareto. If it is a fit, you get 3 hand-picked Right Hand candidates within 24 hours, you interview all three, and you owe nothing if none feel right.</p>
+      <a class="btn" id="bookBtn" href="BOOKING_URL_PLACEHOLDER" target="_blank" rel="noopener">Book my Matching Call</a>
+    </div>
+  </section>
+
+  <footer>Built for the Pareto Talent Bootcamp</footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  var BOOKING_URL = "BOOKING_URL_PLACEHOLDER";
+  var TITLE = "The Overloaded Founder's Handoff Scorecard";
+
+  var AREAS = [
+    { name: "Inbox and email", e: "📬", hint: "Reading, sorting and replying to email.",
+      note: { what: "Sort my inbox and answer routine email so I only see what needs me.",
+        done: "My inbox is sorted, routine replies are sent, and I get a short list of the few emails that need my decision.",
+        often: "Every day.",
+        decide: "Answer routine questions, archive newsletters, sort into folders. Ask me first about money, contracts or anything sensitive." } },
+    { name: "Calendar and scheduling", e: "📅", hint: "Booking, moving and confirming meetings.",
+      note: { what: "Book, move and confirm my meetings.",
+        done: "Every meeting has a time, a link or place, and a one-line purpose. No double bookings.",
+        often: "Several times a week.",
+        decide: "Accept or decline routine meetings, offer times from my open slots, fix small conflicts. Ask me first before moving anything important." } },
+    { name: "Customer follow-up", e: "💬", hint: "Replying to customers and leads after calls and messages.",
+      note: { what: "Follow up with customers and leads after calls and messages.",
+        done: "Everyone I spoke with gets a reply within one working day, and open questions are written down.",
+        often: "Every day.",
+        decide: "Send follow-ups from my approved templates, answer simple questions, update notes. Ask me first before offering discounts or making promises." } },
+    { name: "Invoicing and admin", e: "🧾", hint: "Invoices, payments, contracts and paperwork.",
+      note: { what: "Send invoices, chase late payments and keep paperwork in order.",
+        done: "Invoices go out on time, late payments are chased, and receipts and contracts are filed in one place.",
+        often: "Every week.",
+        decide: "Send standard invoices and payment reminders, and file documents. Ask me first before changing prices or terms, or paying a new supplier." } },
+    { name: "Social media and content", e: "📣", hint: "Planning, writing and posting your content.",
+      note: { what: "Plan, draft and post my content.",
+        done: "Posts are drafted in my voice, I approve them, and they are published on schedule.",
+        often: "Every week.",
+        decide: "Draft posts, schedule the ones I approved, reply to simple comments. Ask me first before sharing opinions, numbers or client names." } },
+    { name: "Research", e: "🔎", hint: "Finding and comparing information for decisions.",
+      note: { what: "Find and summarize the information I need to make a decision.",
+        done: "One short page with the options, the sources, and a clear recommendation.",
+        often: "When I ask, about once a week.",
+        decide: "Choose where to look, compare options and write the summary. Ask me first before contacting anyone or spending money." } },
+    { name: "Hiring and onboarding", e: "🤝", hint: "Finding, screening and welcoming new people.",
+      note: { what: "Help me find, screen and welcome new people.",
+        done: "I get a shortlist with notes, and each new person has their accounts, access and a first-week plan.",
+        often: "Each time I hire.",
+        decide: "Post approved job ads, screen applications against my checklist, book interviews. Ask me first before making offers or sharing pay." } },
+    { name: "Reporting and numbers", e: "📊", hint: "Collecting key numbers and sending a simple report.",
+      note: { what: "Collect my key numbers and send me a simple report.",
+        done: "One page with the key numbers, what changed, and anything that needs my attention.",
+        often: "Every week.",
+        decide: "Pull numbers from our usual tools, build the report, point out anything odd. Ask me first before sharing it outside the team." } },
+    { name: "Travel and personal errands", e: "✈️", hint: "Trips, bookings and the little errands.",
+      note: { what: "Book my trips and handle personal errands.",
+        done: "Bookings are confirmed with all details in one place, and errands are finished with receipts saved.",
+        often: "When needed.",
+        decide: "Compare options within my budget and preferences, and book them. Ask me first before spending above my budget." } },
+    { name: "Project follow-up", e: "🧭", hint: "Keeping projects moving so nothing gets dropped.",
+      note: { what: "Keep my projects moving and make sure nothing is dropped.",
+        done: "Every project has an owner, a next step and a date, and I get a short update on what is late.",
+        often: "A weekly check-in, with reminders as needed.",
+        decide: "Send reminders, update the task board, ask for status. Ask me first before changing deadlines or scope." } }
+  ];
+  var OPTIONS = [
+    { v: 0, t: "Someone else owns it" },
+    { v: 1, t: "I share it" },
+    { v: 2, t: "I do it all myself" }
+  ];
+  var TIERS = [
+    { max: 6, name: "You delegate well", color: "#10B47E",
+      text: "Most of your work already has an owner. That is a real strength. Use the notes below to tidy up the few tasks that still sit with you." },
+    { max: 13, name: "You are stretched", color: "#D99E51",
+      text: "You are holding a lot, and some of it can move. That is normal for a founder. Start small with the tasks below and see how much lighter it feels." },
+    { max: 20, name: "You are the bottleneck", color: "#E26D5A",
+      text: "Too much runs through you, and that is not a personal failure. It is a sign your business has grown. Handing off just a few tasks can bring real relief." }
+  ];
+  var TOTAL_STEPS = 11; // 10 questions + 1 drain screen
+
+  var answers = new Array(AREAS.length).fill(null);
+  var drain = null;
+  var current = 0; // 0 intro, 1..10 questions, 11 drain, 12 result
+
+  var $ = function (id) { return document.getElementById(id); };
+  var qWrap = $("questions");
+
+  // build question screens
+  AREAS.forEach(function (a, i) {
+    var s = document.createElement("section");
+    s.className = "screen"; s.id = "s-q" + i; s.setAttribute("aria-labelledby", "t-q" + i);
+    var opts = OPTIONS.map(function (o) {
+      return '<button type="button" class="opt" role="radio" aria-checked="false" data-v="' + o.v + '" data-i="' + i + '"><span class="dot" aria-hidden="true"></span><span>' + o.t + '</span></button>';
+    }).join("");
+    s.innerHTML =
+      '<div class="area-card">' +
+      '<span class="emoji" aria-hidden="true">' + a.e + '</span>' +
+      '<h2 id="t-q' + i + '" tabindex="-1">' + a.name + '</h2>' +
+      '<p class="hint">' + a.hint + ' Who does this today?</p>' +
+      '<div class="options" role="radiogroup" aria-labelledby="t-q' + i + '">' + opts + '</div>' +
+      '<div class="nav"><button type="button" class="btn ghost small back" data-i="' + i + '">Back</button></div>' +
+      '</div>';
+    qWrap.appendChild(s);
+  });
+
+  // build drain options
+  var dg = $("drainGrid");
+  AREAS.forEach(function (a, i) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "drain"; b.setAttribute("role", "radio"); b.setAttribute("aria-checked", "false"); b.dataset.i = i;
+    b.innerHTML = '<span class="e" aria-hidden="true">' + a.e + '</span><span>' + a.name + '</span>';
+    dg.appendChild(b);
+  });
+
+  function show(step) {
+    current = step;
+    var screens = document.querySelectorAll(".screen");
+    screens.forEach(function (s) { s.classList.remove("active"); });
+    var target;
+    if (step === 0) target = $("s-intro");
+    else if (step <= 10) target = $("s-q" + (step - 1));
+    else if (step === 11) target = $("s-drain");
+    else target = $("s-result");
+    target.classList.add("active");
+
+    var bar = $("topbar");
+    bar.hidden = (step === 0);
+    var done = Math.min(step, TOTAL_STEPS);
+    var pct = step >= 12 ? 100 : Math.round(((step - 1) / TOTAL_STEPS) * 100);
+    if (step === 0) pct = 0;
+    $("pfill").style.width = pct + "%";
+    $("ppct").textContent = pct + "%";
+    $("pbar").setAttribute("aria-valuenow", pct);
+    $("plabel").textContent = step >= 12 ? "All done" : "Step " + done + " of " + TOTAL_STEPS;
+
+    window.scrollTo(0, 0);
+    var h = target.querySelector("h1, h2");
+    if (h) { try { h.focus({ preventScroll: true }); } catch (e) { h.focus(); } }
+  }
+
+  function selectOpt(i, v) {
+    answers[i] = v;
+    var btns = $("s-q" + i).querySelectorAll(".opt");
+    btns.forEach(function (b) { b.setAttribute("aria-checked", String(Number(b.dataset.v) === v)); });
+    setTimeout(function () { show(i + 2); }, 280);
+  }
+
+  qWrap.addEventListener("click", function (ev) {
+    var opt = ev.target.closest(".opt");
+    if (opt) { selectOpt(Number(opt.dataset.i), Number(opt.dataset.v)); return; }
+    var back = ev.target.closest(".back");
+    if (back) { show(Number(back.dataset.i)); }
+  });
+
+  $("startBtn").addEventListener("click", function () { show(1); });
+
+  dg.addEventListener("click", function (ev) {
+    var b = ev.target.closest(".drain");
+    if (!b) return;
+    drain = Number(b.dataset.i);
+    dg.querySelectorAll(".drain").forEach(function (x) { x.setAttribute("aria-checked", String(Number(x.dataset.i) === drain)); });
+    $("seeBtn").disabled = false;
+  });
+  $("drainBack").addEventListener("click", function () { show(10); });
+  $("seeBtn").addEventListener("click", function () { if (drain !== null) { renderResult(); show(12); } });
+
+  function pickTop3() {
+    var picks = [];
+    function addLevel(level) {
+      if (drain !== null && answers[drain] === level && picks.indexOf(drain) === -1 && picks.length < 3) picks.push(drain);
+      for (var i = 0; i < AREAS.length && picks.length < 3; i++) {
+        if (answers[i] === level && picks.indexOf(i) === -1) picks.push(i);
+      }
+    }
+    addLevel(2);
+    if (picks.length < 3) addLevel(1);
+    return picks;
+  }
+
+  function noteText(i) {
+    var n = AREAS[i].note;
+    return "What it is: " + n.what + "\n" +
+           "Done looks like: " + n.done + "\n" +
+           "How often: " + n.often + "\n" +
+           "You can decide alone: " + n.decide;
+  }
+
+  var lastSummary = "";
+
+  function renderResult() {
+    var total = answers.reduce(function (s, v) { return s + (v || 0); }, 0);
+    var tier = TIERS.filter(function (t) { return total <= t.max; })[0];
+    $("scoreNum").textContent = total;
+    $("tierName").textContent = tier.name;
+    $("tierText").textContent = tier.text;
+    $("scoreCard").style.setProperty("--tier-color", tier.color);
+    var m = $("meter"); m.innerHTML = "";
+    for (var k = 1; k <= 20; k++) { var el = document.createElement("i"); if (k <= total) el.className = "on"; m.appendChild(el); }
+    $("drainLine").textContent = "Your biggest drain: " + AREAS[drain].name;
+
+    var picks = pickTop3();
+    var wrap = $("tasks"); wrap.innerHTML = "";
+    var summary = [TITLE, "My score: " + total + " / 20 - " + tier.name, "My biggest drain: " + AREAS[drain].name, ""];
+
+    if (picks.length === 0) {
+      wrap.innerHTML = '<div class="empty"><p><b>Nothing to hand off right now.</b></p><p class="muted" style="margin:0">Someone else owns every area you answered. That is a great place to be. Keep checking in with them as your business grows.</p></div>';
+      $("topTitle").textContent = "Your top tasks to hand off first";
+      $("topSub").textContent = "";
+      summary.push("No tasks to hand off right now. Someone else owns every area.");
+    } else {
+      $("topTitle").textContent = picks.length === 3 ? "Your top 3 tasks to hand off first" : "Your top " + picks.length + " task" + (picks.length > 1 ? "s" : "") + " to hand off first";
+      $("topSub").textContent = picks.length < 3
+        ? "These are the only areas where you still do some or all of the work. Edit each note so it sounds like you."
+        : "Start with these. Edit each note so it sounds like you.";
+      picks.forEach(function (i, idx) {
+        var a = AREAS[i], n = a.note;
+        var d = document.createElement("div"); d.className = "task";
+        var tag = answers[i] === 2 ? '<span class="tag all">You do it all yourself</span>' : '<span class="tag">You share it</span>';
+        var drainTag = (i === drain) ? ' <span class="tag hl">Your biggest drain</span>' : "";
+        d.innerHTML =
+          '<div class="task-head"><div class="rank" aria-hidden="true">' + (idx + 1) + '</div><h3 style="margin:0">' + a.e + ' ' + a.name + '</h3></div>' +
+          tag + drainTag +
+          '<div class="note" aria-label="Handoff note for ' + a.name + '">' +
+          '<p><b>What it is:</b> ' + n.what + '</p>' +
+          '<p><b>Done looks like:</b> ' + n.done + '</p>' +
+          '<p><b>How often:</b> ' + n.often + '</p>' +
+          '<p><b>You can decide alone:</b> ' + n.decide + '</p></div>' +
+          '<button type="button" class="btn small copy-note" data-i="' + i + '">Copy handoff note</button>';
+        wrap.appendChild(d);
+        summary.push((idx + 1) + ". " + a.name + (answers[i] === 2 ? " (I do it all myself)" : " (I share it)"));
+        summary.push(noteText(i));
+        summary.push("");
+      });
+    }
+    summary.push("Want help with these? Book a short call about a Right Hand: " + BOOKING_URL);
+    lastSummary = summary.join("\n");
+  }
+
+  $("tasks").addEventListener("click", function (ev) {
+    var b = ev.target.closest(".copy-note");
+    if (!b) return;
+    copyText(noteText(Number(b.dataset.i)), "Handoff note copied");
+  });
+  $("copyAll").addEventListener("click", function () { copyText(lastSummary, "Your results are copied"); });
+  $("retake").addEventListener("click", function () {
+    answers = new Array(AREAS.length).fill(null); drain = null;
+    document.querySelectorAll(".opt, .drain").forEach(function (b) { b.setAttribute("aria-checked", "false"); });
+    $("seeBtn").disabled = true;
+    show(0);
+  });
+
+  function toast(msg) {
+    var t = $("toast"); t.textContent = msg; t.classList.add("show");
+    clearTimeout(toast._t); toast._t = setTimeout(function () { t.classList.remove("show"); }, 2200);
+  }
+  function fallbackCopy(text) {
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0"; ta.style.top = "0";
+    document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, text.length);
+    var ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+  function copyText(text, okMsg) {
+    function done(ok) { toast(ok ? okMsg : "Could not copy. Please select the text and copy it."); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(fallbackCopy(text)); });
+    } else { done(fallbackCopy(text)); }
+  }
+})();
+</script>
+</body>
+</html>
